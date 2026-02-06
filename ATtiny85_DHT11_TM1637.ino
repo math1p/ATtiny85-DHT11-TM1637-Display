@@ -20,12 +20,15 @@ const uint8_t SEG_LC[] = {
   SEG_A | SEG_F | SEG_E | SEG_D // C
   };
 
+const uint8_t SEG_LF[] = {
+  SEG_A | SEG_E | SEG_F | SEG_G // F
+
 const uint8_t SEG_HUM1[] = {
-  SEG_B | SEG_C | SEG_E | SEG_F | SEG_G, // "H"
+  SEG_B | SEG_C | SEG_E | SEG_F | SEG_G, // H
   };
 
 const uint8_t SEG_HUM2[] = {
-  SEG_B | SEG_C | SEG_D | SEG_E | SEG_F // "u"
+  SEG_B | SEG_C | SEG_D | SEG_E | SEG_F // U
   };
 
 
@@ -38,8 +41,8 @@ void setup()
 void loop() 
 {
   int chk = DHT.read11(DHT11_PIN);
-  int humid = DHT.getHumidity();               // Lê a umidade
-  int temp = DHT.getTemperature();             // Lê a temperatura
+  int humid = DHT.getHumidity();          
+  int temp = DHT.getTemperature();         
   display.clear();
   display.showNumberDec(humid, false, 2, 0); // : ___0
   display.setSegments(SEG_HUM1, 2, 3);
@@ -48,6 +51,11 @@ void loop()
   display.clear();
   display.showNumberDec(temp, false, 2, 0); // : ___0
   display.setSegments(SEG_GRAUS, 1, 2);
-  display.setSegments(SEG_LC, 2, 3);  
+  if TEMPTYPE == 0 {
+    display.setSegments(SEG_LC, 2, 3); 
+  }
+  else {
+    display.setSegments(SEG_LF, 2, 3); 
+  }
   delay(10000);
 }
